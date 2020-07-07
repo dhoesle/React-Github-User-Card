@@ -24,7 +24,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Github Users</h1>
-        <User users={this.state.users}/>
+        <div className='cards'>
+          <User users={this.state.users}/>
+        </div>
+
       </div>
     );
 

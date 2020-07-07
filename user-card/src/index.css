@@ -103,6 +103,12 @@ h1 {
   background-color: #FFF;
   margin-bottom: 30px;
 }
+
+.followers {
+  display:flex;
+  flex-direction: column;
+}
+
 .card-info {
   text-align: left;
 }

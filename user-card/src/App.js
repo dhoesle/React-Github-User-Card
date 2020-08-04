@@ -5,7 +5,8 @@ import User from './components/User'
 class App extends React.Component {
   state = {
     users: [],
-    followers: []
+    followers: [],
+    userText: ''
   }
 
   componentDidMount() {
@@ -22,7 +23,7 @@ class App extends React.Component {
   fetchFollowers = e => {
     e.preventDefault();
     axios 
-      .get('https://api.github.com/users/dhoesle/followers')
+      .get(`https://api.github.com/users/${this.state.userText}/followers`)
       .then(res => {
       console.log("App -> res", res.data)
         this.setState({
@@ -31,6 +32,28 @@ class App extends React.Component {
         
       })
   }
+
+  handleChanges = e => {
+    const { value } = e.target;
+
+    this.setState({
+      userText: value
+    })
+  }
+
+  fetchUsers = e => {
+    e.preventDefault()
+    axios
+      .get(`https://api.github.com/users/${this.state.userText}`)
+      .then(res => {
+        console.log(res)
+        this.setState({
+          users: res.data
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
 
   render() {
     return (
@@ -43,6 +66,12 @@ class App extends React.Component {
           
           />
           <button onClick={this.fetchFollowers}>Fetch followers</button>
+          <input
+          type="text"
+          value={this.state.userText}
+          onChange={this.handleChanges}
+          />
+          <button onClick={this.fetchUsers}>Fetch User</button>
 
         </div>
 
